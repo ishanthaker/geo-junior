@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-top: 50px;
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            text-decoration: none;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to GeoJunior!</h1>
+
+    <div class="button-container">
+        <a href="{{ url_for('quizzes') }}" class="button">Quizzes</a>
+        <a href="{{ url_for('study') }}" class="button">Study</a>
+        <a href="{{ url_for('profile') }}" class="button">Profile</a>
+    </div>
+</body>
+
+</html>
