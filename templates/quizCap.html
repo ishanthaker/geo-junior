@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Quiz</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #84a2b6;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #fff;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 3em; /* Larger font size */
+        text-shadow: 4px 4px 0px rgba(0,0,0,0.3); /* Enhanced 3D effect */
+        transform: perspective(500px) rotateY(10deg); /* Slight 3D tilt */
+    }
+
+    input[type="text"] {
+        width: 100%; /* Full width of the container */
+        padding: 10px; /* Comfortable padding */
+        margin: 10px 0 20px; /* Space around the input box */
+        border: 2px solid #007bff; /* Border color matching the buttons */
+        border-radius: 5px; /* Rounded corners */
+        box-sizing: border-box; /* To include padding and border in width */
+        transition: border-color 0.3s ease-in-out; /* Smooth transition for focus */
+        font-size: 1.2em; /* Larger font size */
+        background-color: #f0f8ff; /* Light background for input */
+    }
+
+    /* Style for input focus */
+    input[type="text"]:focus {
+        outline: none; /* Remove default focus outline */
+        border-color: #ff7e5f; /* Change border color on focus */
+        box-shadow: 0 0 8px rgba(255, 126, 95, 0.6); /* Subtle glow effect */
+        
+    }
+
+    .quiz-container {
+        background-color: #fff7e6; /* Softer background for the container */
+        padding: 50px; /* More padding for larger boxes */
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        max-width: 900px; /* Larger width */
+        margin: auto;
+        animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            transform: translateX(100%) scale(0.5);
+            opacity: 0;
+        }
+        60% {
+            transform: translateX(-10%) scale(1.1);
+        }
+        100% {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 80% { transform: translateX(-10px); }
+        40%, 60% { transform: translateX(10px); }
+    }
+
+    .input-incorrect {
+        animation: shake 0.5s ease-in-out;
+    }
+
+
+
+    .question {
+        background-color: #e9e9e9;
+        padding: 20px; /* Increase padding for readability */
+        margin: 20px 0;
+        border-radius: 10px;
+        font-size: 1.4em; /* Increase font size */
+        transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+        animation: bounceIn 0.8s ease-out;
+    }
+
+    .question:hover {
+        transform: scale(1.03); /* Slightly enlarge on hover */
+        background-color: #f0f0f0; /* Slightly change color on hover */
+    }
+
+    .options button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 30px;
+        margin: 10px;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.3s;
+        font-size: 1.1em;
+    }
+
+    .options button:hover {
+        background-color: #0056b3;
+        transform: scale(1.05); /* Slightly enlarge buttons on hover */
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .popup-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        text-align: center;
+    }
+
+    .popup-image {
+        width: 50px;
+        height: auto;
+        margin: 10px 0;
+    }
+
+    .close-button {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .nav-bar {
+            background-color: transparent; /* Remove any background color */
+            padding: 10px 20px; /* Adjust padding */
+            text-align: left;
+            position: absolute; /* Make nav bar absolute positioned */
+            top: 0; /* Position at the top */
+            left: 0; /* Align to the left */
+            width: 100%; /* Full width */
+        }
+
+        .nav-bar a {
+            color: #fff; /* White color text for visibility */
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #3498db; /* Button background color */
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-bar a:hover {
+            background-color: #2980b9; /* Darker shade on hover */
+        }
+
+    .submit-button {
+        background-image: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background */
+        color: white;
+        border: none;
+        border-radius: 30px; /* Rounded corners */
+        padding: 5px 10px;
+        font-size: 1.1em;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: all 0.3s ease; /* Smooth transition for hover effect */
+    }
+    .submit-button:hover {
+        background-image: linear-gradient(to right, #feb47b, #ff7e5f); /* Inverted gradient on hover */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Larger shadow on hover */
+        transform: translateY(-2px); /* Slightly raise the button */
+    }
+    .submit-button-correct {
+        background-color: #28a745; /* Green background for correct answer */
+        border-color: #28a745;
+        pointer-events: none; /* Disable further clicks */
+    }
+
+    @media (max-width: 600px) {
+        .quiz-container {
+            width: 100%;
+        }
+    }
+    .nav-bar {
+            background-color: transparent; /* Make the background transparent */
+            padding: 10px 0;
+            text-align: left;
+            position: absolute; /* Position it at the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .nav-bar a {
+            margin-left: 20px;
+            color: #fff; /* White color for the text */
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #3498db; /* Blue background for the button */
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-bar a:hover {
+            background-color: #2980b9; /* Darker shade for hover effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="{{ url_for('home') }}">🏠 Home</a>
+    </div>
+    <h1>Capitals Quiz</h1>
+    <div id="feedbackPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <p id="feedbackText"></p>
+        </div>
+    </div>
+    <div class="quiz-container">
+    <!-- Question 1 -->
+        <div class="question" id="q1">
+            <p>What is the capital of Brazil?</p>
+            <input type="text" id="q1Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q1', 'Brasilia')">Submit</button>
+        </div>
+
+        <!-- Question 2 (Your Existing Question) -->
+        <div class="question" id="q2">
+            <p>What is the capital of the United States</p>
+            <input type="text" id="q2Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q2', 'Washington DC')">Submit</button>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question" id="q3">
+            <p>What is the capital of Japan?</p>
+            <input type="text" id="q3Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q3', 'Tokyo')">Submit</button>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question" id="q4">
+            <p>What is the capital of Australia?</p>
+            <input type="text" id="q4Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q4', 'Canberra')">Submit</button>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question" id="q5">
+            <p>What is the capital of Canada?</p>
+            <input type="text" id="q5Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q5', 'Ottawa')">Submit</button>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question" id="q6">
+            <p>What is the capital of Italy?</p>
+            <input type="text" id="q6Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q6', 'Rome')">Submit</button>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question" id="q7">
+            <p>What is the capital of Russia?</p>
+            <input type="text" id="q7Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q7', 'Moscow')">Submit</button>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question" id="q8">
+            <p>What is the capital of India?</p>
+            <input type="text" id="q8Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q8', 'New Delhi')">Submit</button>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question" id="q9">
+            <p>What is the capital of Egypt?</p>
+            <input type="text" id="q9Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q9', 'Cairo')">Submit</button>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question" id="q10">
+            <p>What is the capital of South Africa?</p>
+            <input type="text" id="q10Answer" placeholder="Your Answer">
+            <button class="submit-button" onclick="checkAnswer('q10', 'Pretoria')">Submit</button>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAnswer(questionId, correctAnswer) {
+            var userAnswerElement = document.getElementById(questionId + 'Answer');
+            var userAnswer = userAnswerElement.value.trim(); // trim whitespace
+            var feedbackPopup = document.getElementById('feedbackPopup');
+            var feedbackText = document.getElementById('feedbackText');
+            var submitButton = document.querySelector('#' + questionId + ' .submit-button');
+        
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                feedbackText.innerHTML = "<span style='font-size: 24px; color: green;'>CORRECT!</span>";
+                submitButton.classList.add('submit-button-correct');
+                submitButton.textContent = "Correct";
+                userAnswerElement.disabled = true; // Disable the input field
+                submitButton.disabled = true; // Optionally disable the submit button as well
+            } else {
+                feedbackText.innerHTML = "<span style='font-size: 24px;'>INCORRECT. The correct answer is: " + correctAnswer + "</span>" 
+                userAnswerElement.classList.add('input-incorrect'); // Trigger shake animation
+                userAnswer.classList.add('input-incorrect');
+                setTimeout(() => {
+                    userAnswerElement.classList.remove('input-incorrect'); // Remove animation class after it completes
+                }, 500); // Remove the class after the animation
+            }
+        
+            feedbackPopup.style.display = "block";
+        
+            // Close button logic
+            var closeButton = document.getElementsByClassName("close-button")[0];
+            closeButton.onclick = function() {
+                feedbackPopup.style.display = "none";
+            }
+        
+            // Automatically hide the popup after 3 seconds
+            setTimeout(function() {
+                feedbackPopup.style.display = "none";
+            }, 2000); // 2 seconds
+        }
+        
+    </script>
+</body>
+
+</html>

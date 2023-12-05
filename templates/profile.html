@@ -1,36 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    
     <style>
         body {
-            background-color: #f0f0f0;
+            background-color: #84a2b6;
             font-family: 'Arial', sans-serif;
             text-align: center;
+            line-height: 1.6;
+            padding: 20px;
         }
 
         h1 {
             color: #333;
             font-size: 2.5em;
             margin-top: 50px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            transform: perspective(400px) rotateY(10deg);
+        }
+
+        .profile-container {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .welcome-message, .streak-message, .highest-streak-message,
+        .accuracy-message, .favorite-quiz-message {
+            opacity: 0; /* Initially hidden */
         }
 
         .welcome-message {
-            margin-top: 30px;
+            margin-top: 4px;
             font-size: 1.5em;
+            animation: fadeIn 1s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .streak-message {
+            margin-top: 8px;
+            font-size: 1.3em;
+            animation: fadeInStreak 1.5s ease-in-out;
+            animation-delay: 1s;
+            animation-fill-mode: forwards;
+        }
+
+        .accuracy-message {
+            margin-top: 8px;
+            font-size: 1.3em;
+            animation: fadeInStreak 1.5s ease-in-out;
+            animation-delay: 2s;
+            animation-fill-mode: forwards;
+        }
+
+        .highest-streak-message {
+            margin-top: 8px;
+            font-size: 1.3em;
+            animation: fadeInStreak 1.5s ease-in-out;
+            animation-delay: 3s;
+            animation-fill-mode: forwards;
+        }
+
+        .favorite-quiz-message {
+            margin-top: 8px;
+            font-size: 1.3em;
+            animation: fadeInStreak 1.5s ease-in-out;
+            animation-delay: 4s;
+            animation-fill-mode: forwards;
+        }
+        
+        .logout-button {
+            background-color: #d9534f; /* Red color for logout */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .logout-button:hover {
+            background-color: #c9302c; /* Darker shade for hover effect */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        h6 {
+            color: #007bff; /* Blue color to indicate interactivity */
+            margin-top: -20px; /* Adjust as needed to bring it closer to the title */
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        h6:hover {
+            color: #0056b3; /* Darker shade for hover effect */
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes fadeInStreak {
+            from {opacity: 0; transform: translateY(-10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @media (max-width: 600px) {
+            .welcome-message, .streak-message, .highest-streak-message,
+            .accuracy-message, .favorite-quiz-message {
+                font-size: 1.1em;
+            }
+        }
+
+        .nav-bar {
+            background-color: #84a2b6; /* Adjust to match page background */
+            padding: 10px 0;
+            text-align: left;
+        }
+
+        .nav-bar a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #3498db;
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-bar a:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
-
 <body>
-    <h1>User Profile</h1>
+    <div class="nav-bar">
+        <a href="{{ url_for('home') }}">🏠 Home</a>
+    </div>
+    <h1>🐒 Profile 🐒</h1>
+    <h6>change profile emoji</h6>
+    <div class="profile-container">
+        <div class="welcome-message">
+            Hi {{ username }}!
+        </div>
 
-    <div class="welcome-message">
-        Hi {{ username }}!
+        <div class="streak-message">
+            🔥 Your current login streak is: 3!
+        </div>
+
+        <div class="accuracy-message">
+            🎯 Your accuracy is: 70%
+        </div>
+
+        <div class="highest-streak-message">
+            ❓ Your highest answer streak is: 15!
+        </div>
+
+        <div class="favorite-quiz-message">
+            🌍 Your favorite quiz is: Capitals
+        </div>
+        <br>
+        <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
     </div>
 </body>
-
 </html>

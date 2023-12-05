@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study - Geography Flashcards</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #84a2b6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2); /* 3D effect */
+            margin-top: 50px;
+        }
+
+
+        .flashcard-container {
+            margin-top: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flashcard {
+            padding: 70px; /* Increased padding */
+            margin: 15px; /* Adjust margin if needed */
+            border: 1px solid #333;
+            background-color: #fff;
+            width: 300px; /* Increased width */
+            height: 200px; /* Increased height */
+            perspective: 1000px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .flashcard-inner {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .question,
+        .answer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            backface-visibility: hidden;
+            font-size: 1.2em; /* Increased font size */
+        }
+
+        .answer {
+            transform: rotateY(180deg);
+        }
+
+        .switch-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            color: #fff;
+            background-image: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient to match submit buttons */
+            border: none;
+            border-radius: 30px; /* Rounded corners like submit buttons */
+            transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+        .switch-btn:hover {
+            background-image: linear-gradient(to right, #feb47b, #ff7e5f); /* Inverted gradient on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Larger shadow on hover */
+        }
+
+        .navigation {
+            margin-top: 20px;
+            background-color: #fff;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #prevButton, #nextButton {
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #prevButton:hover, #nextButton:hover {
+            background-color: #2980b9;
+        }
+
+        #counter {
+            font-size: 1.2em;
+            margin: 0 10px;
+        }
+
+        .nav-bar {
+            background-color: transparent; /* Make the background transparent */
+            padding: 10px 0;
+            text-align: left;
+            position: absolute; /* Position it at the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .nav-bar a {
+            margin-left: 20px;
+            color: #fff; /* White color for the text */
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #3498db; /* Blue background for the button */
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-bar a:hover {
+            background-color: #2980b9; /* Darker shade for hover effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="{{ url_for('home') }}">🏠 Home</a>
+    </div>
+    <h1>Geography Flashcards</h1>
+
+    <div class="flashcard-container">
+        <!-- Flashcard 1 -->
+        <div class="flashcard" id="geographyFlashcard1" onclick="flipFlashcard('geographyFlashcard1')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>How many contintents are the there in the world?</p>
+                </div>
+                <div class="answer">
+                    <p>7</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flashcard 2 -->
+        <div class="flashcard" id="geographyFlashcard2" onclick="flipFlashcard('geographyFlashcard2')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>What continent is predominantly uninhabited by humans?</p>
+                </div>
+                <div class="answer">
+                    <p>Antartica</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 3 -->
+        <div class="flashcard" id="geographyFlashcard3" onclick="flipFlashcard('geographyFlashcard3')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>Which river is the longest in the world?</p>
+                </div>
+                <div class="answer">
+                    <p>Nile</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 4 -->
+        <div class="flashcard" id="geographyFlashcard4" onclick="flipFlashcard('geographyFlashcard4')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>Which river is the longest in the world?</p>
+                </div>
+                <div class="answer">
+                    <p>Nile</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 5 -->
+        <div class="flashcard" id="geographyFlashcard5" onclick="flipFlashcard('geographyFlashcard5')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>What sea has the highest salt content?</p>
+                </div>
+                <div class="answer">
+                    <p>Red Sea</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 6 -->
+        <div class="flashcard" id="geographyFlashcard6" onclick="flipFlashcard('geographyFlashcard6')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>What is the longest river in Asia?</p>
+                </div>
+                <div class="answer">
+                    <p>Yangtze</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 7 -->
+        <div class="flashcard" id="geographyFlashcard7" onclick="flipFlashcard('geographyFlashcard7')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>How many countries are in Europe?</p>
+                </div>
+                <div class="answer">
+                    <p>50</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 8 -->
+        <div class="flashcard" id="geographyFlashcard8" onclick="flipFlashcard('geographyFlashcard8')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>Which mountain is the highest in the world?</p>
+                </div>
+                <div class="answer">
+                    <p>Mount Everest</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 9 -->
+        <div class="flashcard" id="geographyFlashcard9" onclick="flipFlashcard('geographyFlashcard9')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>Where is the largest crater in the world?</p>
+                </div>
+                <div class="answer">
+                    <p>South Africa</p>
+                </div>
+            </div>
+        </div>
+        <!-- Flashcard 10 -->
+        <div class="flashcard" id="geographyFlashcard10" onclick="flipFlashcard('geographyFlashcard10')">
+            <div class="flashcard-inner">
+                <div class="question">
+                    <p>Which U.S. state is the Grand Canyon located in?</p>
+                </div>
+                <div class="answer">
+                    <p>Nevada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more flashcards as needed -->
+    </div>
+    <div class="navigation">
+        <button id="prevButton">Previous</button>
+        <span id="counter">1 / 10</span> <!-- Example counter -->
+        <button id="nextButton">Next</button>
+    </div>
+
+    <script>
+        function flipFlashcard(cardId) {
+            var flashcard = document.getElementById(cardId);
+            flashcard.classList.toggle('flipped');
+        }
+
+        let currentFlashcardIndex = 0;
+        const flashcards = document.querySelectorAll('.flashcard');
+        const totalFlashcards = flashcards.length;
+        const counter = document.getElementById('counter');
+
+        function updateFlashcardVisibility() {
+            flashcards.forEach((fc, index) => {
+                fc.style.display = index === currentFlashcardIndex ? 'block' : 'none';
+                fc.classList.remove('flipped'); // Reset to the question side
+            });
+            counter.textContent = `${currentFlashcardIndex + 1} / ${totalFlashcards}`;
+        }
+
+        function autoFlipBack() {
+            const currentCard = flashcards[currentFlashcardIndex];
+            setTimeout(() => {
+                if (currentCard.classList.contains('flipped')) {
+                    currentCard.classList.remove('flipped');
+                }
+            }, 3000); // 3 seconds delay
+        }
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            currentFlashcardIndex = (currentFlashcardIndex + 1) % totalFlashcards;
+            updateFlashcardVisibility();
+            autoFlipBack();
+        });
+
+        document.getElementById('prevButton').addEventListener('click', () => {
+            currentFlashcardIndex = (currentFlashcardIndex - 1 + totalFlashcards) % totalFlashcards;
+            updateFlashcardVisibility();
+            autoFlipBack();
+        });
+
+        // Initialize
+        updateFlashcardVisibility();
+    </script>
+</body>
+
+</html>

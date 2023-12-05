@@ -56,17 +56,41 @@ def login():
 # Route for the home page
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', username=session_username)
 
 # Route for the Quizzes page
 @app.route('/quizzes')
 def quizzes():
     return render_template('quizzes.html')
 
+@app.route('/quizGeo')
+def quizGeo():
+    return render_template('quizGeo.html')
+
+@app.route('/quizLand')
+def quizLand():
+    return render_template('quizLand.html')
+
+@app.route('/quizCap')
+def quizCap():
+    return render_template('quizCap.html')
+
 # Route for the Study page
 @app.route('/study')
 def study():
     return render_template('study.html')
+
+@app.route('/studyGeo')
+def studyGeo():
+    return render_template('studyGeo.html')
+
+@app.route('/studyLand')
+def studyLand():
+    return render_template('studyLand.html')
+
+@app.route('/studyCap')
+def studyCap():
+    return render_template('studyCap.html')
 
 # Route for the Profile page
 @app.route('/profile')
